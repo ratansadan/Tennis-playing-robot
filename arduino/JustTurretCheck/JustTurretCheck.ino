@@ -1,18 +1,9 @@
-//derived from turret_test_april_11
 boolean just_after_a_cw_hit= false;
 boolean just_after_a_ccw_hit= false;
 
 int turretmotorpin1=26;
 int turretmotorpin2=27;
 int enableturret=5;
-
-
-char val;
-int leftorright,downorup,baseycorrection,cworccw,basethetacorrection,hitcommand,encoderangle,pwmvalue,angleconstant;
-
-int tripSwitchValue = 0;
-int turretMode = 0;
-
 
 void setup()
 {
@@ -25,11 +16,11 @@ void loop()
 {
   motorreset();
   delay(5000);
-  hit(120);
+  hit(2250);
   delay(250);
   motorreset();
   delay(5000);
-  hit(10);
+  hit(3200);
   delay(250);
 }
 void motorreset()
@@ -56,13 +47,13 @@ void hit(int angleValue)
   Serial.println("inside hit");
   //compare angleValue and decide and the direction in which motor has to be hit
   //give a hit function and with required pwm
-  if(angleValue<100)
+  if(angleValue<3150)
   {
     Serial.println("inside hit---->angleValue<100");
     turretclockwise(175);
     just_after_a_cw_hit=true;
   }
-  else if(angleValue>100)
+  else if(angleValue>3150)
   {
     Serial.println("inside hit----->angleValue>100");
     turretanticlockwise(175);
