@@ -1,10 +1,10 @@
 #define encoder_motor_pin_A 2 //change to corresponding pins in mega
 #define encoder_motor_pin_B 3 //change to corresponding pins in mega
-#define encoder_motor_pin_input_1 8
-#define encoder_motor_pin_input_2 9
-#define encoder_motor_pin_enable 10
+#define encoder_motor_pin_input_1 10
+#define encoder_motor_pin_input_2 12
+#define encoder_motor_pin_enable 11
 
-volatile unsigned int encoder_motor_pos = 0;
+volatile unsigned int encoder_motor_pos = 2250;
 
 void setup() {
 
@@ -22,15 +22,29 @@ void setup() {
 }
 void loop()
 {
- encoderMotorCW(900);
- delay(4000);
- encoderMotorCCW(900);
- delay(4000);
- encoderMotorCW(1800);
- delay(4000);
- encoderMotorCCW(1800);
- delay(4000);
- 
+  encoderMotorPos(2250);
+  delay(4000);
+  encoderMotorPos(3250);
+  delay(4000);
+}
+
+void encoderMotorPos(int encoder_motor_final_pos)
+{
+  while(encoder_motor_pos<encoder_motor_final_pos)
+  {
+    digitalWrite(encoder_motor_pin_input_1, HIGH);
+    digitalWrite(encoder_motor_pin_input_2, LOW);
+    analogWrite(encoder_motor_pin_enable, 120);
+  }
+  while(encoder_motor_pos>encoder_motor_final_pos)
+  {
+    digitalWrite(encoder_motor_pin_input_1, LOW);
+    digitalWrite(encoder_motor_pin_input_2, HIGH);
+    analogWrite(encoder_motor_pin_enable, 120);
+  }
+  digitalWrite(encoder_motor_pin_input_1, HIGH);
+  digitalWrite(encoder_motor_pin_input_2, HIGH);
+  analogWrite(encoder_motor_pin_enable, 0);
 }
 
 void encoderMotorCW(int encoder_motor_steps)
@@ -98,6 +112,7 @@ void doEncoderB(){
     }
   }
 }
+
 
 
 
