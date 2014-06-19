@@ -16,6 +16,7 @@ void loop()
     Serial.println(val);
     if(val=='2')
       Serial.println("received back");
+      //comment
   }
 
 }
